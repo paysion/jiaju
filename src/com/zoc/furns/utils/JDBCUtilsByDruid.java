@@ -23,7 +23,10 @@ public class JDBCUtilsByDruid {
     static {
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream("src\\druid.properties"));
+            //因为我们是web项目，他的工作目录在out, 文件的加载，需要使用类加载器
+            //找到我们的工作目录
+            properties.load(JDBCUtilsByDruid.class.getClassLoader().getResourceAsStream("druid.properties"));
+            // properties.load(new FileInputStream("src\\druid.properties"));
             ds = DruidDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {
             e.printStackTrace();
