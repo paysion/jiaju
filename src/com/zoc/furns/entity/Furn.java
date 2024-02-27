@@ -10,19 +10,19 @@ public class Furn {
     private BigDecimal price;
     private Integer sales;
     private Integer stock;
-    private String img_path;
+    private String imgPath;
 
     public Furn() {
     }
 
-    public Furn(Integer id, String name, String maker, BigDecimal price, Integer sales, Integer stock, String img_path) {
+    public Furn(Integer id, String name, String maker, BigDecimal price, Integer sales, Integer stock, String imgPath) {
         this.id = id;
         this.name = name;
         this.maker = maker;
         this.price = price;
         this.sales = sales;
         this.stock = stock;
-        this.img_path = img_path;
+        this.imgPath = imgPath;
     }
 
     public Integer getId() {
@@ -73,12 +73,12 @@ public class Furn {
         this.stock = stock;
     }
 
-    public String getImg_path() {
-        return img_path;
+    public String getImgPath() {
+        return imgPath;
     }
 
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Furn {
                 ", price='" + price + '\'' +
                 ", sales=" + sales +
                 ", stock=" + stock +
-                ", img_path='" + img_path + '\'' +
+                ", img_path='" + imgPath + '\'' +
                 '}';
     }
 }
