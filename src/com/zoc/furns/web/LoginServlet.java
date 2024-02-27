@@ -1,3 +1,4 @@
+/*
 package com.zoc.furns.web;
 
 import com.zoc.furns.entity.Member;
@@ -33,3 +34,4 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
+*/

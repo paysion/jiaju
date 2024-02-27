@@ -124,7 +124,9 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="loginServlet" method="post">
+                                    <form action="memberServlet" method="post">
+                                        <!-- 增加隐藏域表示login请求 -->
+                                        <input type="hidden" name="action" value="login">
                                         <input type="text" name="username" placeholder="Username"/>
                                         <input type="password" name="password" placeholder="Password"/>
                                         <div class="button-box">
@@ -144,7 +146,9 @@
                                 <div class="login-register-form">
                                     <span class="errorMsg"
                                           style="float: right; font-weight: bold; font-size: 18pt; margin-left: 10px;"></span>
-                                    <form action="registServlet" method="post">
+                                    <form action="memberServlet" method="post">
+                                        <!-- 增加隐藏域表示register请求 -->
+                                        <input type="hidden" name="action" value="register">
                                         <input type="text" id="username" name="username" placeholder="Username"/>
                                         <input type="password" id="password" name="password" placeholder="输入密码"/>
                                         <input type="password" id="repwd" name="user-password" placeholder="确认密码"/>
