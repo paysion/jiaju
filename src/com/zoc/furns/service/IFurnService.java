@@ -8,4 +8,7 @@ public interface IFurnService {
 
     public List<Furn> queryFurns();
 
+    public boolean addFurn(Furn furn);
+
+    public int delFurn(Furn furn);
 }

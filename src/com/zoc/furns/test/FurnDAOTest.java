@@ -5,6 +5,7 @@ import com.zoc.furns.dao.impl.FurnDAOImpl;
 import com.zoc.furns.entity.Furn;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class FurnDAOTest {
@@ -16,6 +17,26 @@ public class FurnDAOTest {
         List<Furn> furns = furnDAO.queryFurns();
         for (Furn furn : furns) {
             System.out.println(furn);
+        }
+    }
+
+    @Test
+    public void addFurnTest(){
+        Furn furn = new Furn(null,"zzz","xxx",new BigDecimal("120.00"),222,333," ");
+        if (furnDAO.addFurn(furn)) {
+            System.out.println("添加furn:" + furn + "成功");
+        } else {
+            System.out.println("添加失败");
+        }
+    }
+
+    @Test
+    public void delFurnTest(){
+        Furn furn = new Furn(8,"zzz","xxx",new BigDecimal("120.00"),222,333," ");
+        if (furnDAO.delFurn(furn) > 0) {
+            System.out.println("删除 " + furn + " 成功");
+        } else {
+            System.out.println("删除失败");
         }
     }
 }

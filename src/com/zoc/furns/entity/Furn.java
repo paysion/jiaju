@@ -10,7 +10,7 @@ public class Furn {
     private BigDecimal price;
     private Integer sales;
     private Integer stock;
-    private String imgPath;
+    private String imgPath = "assets/images/product-image/default.jpg";
 
     public Furn() {
     }
@@ -22,7 +22,9 @@ public class Furn {
         this.price = price;
         this.sales = sales;
         this.stock = stock;
-        this.imgPath = imgPath;
+        if ("".equals(imgPath) || imgPath==null) {
+            this.imgPath = imgPath;
+        }
     }
 
     public Integer getId() {

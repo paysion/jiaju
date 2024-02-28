@@ -65,7 +65,9 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
+                                    <form action="adminServlet" method="post">
+                                        <!-- 增加隐藏域表示会员login请求 -->
+                                        <input type="hidden" name="action" value="login">
                                         <input type="text" name="user-name" placeholder="Username"/>
                                         <input type="password" name="user-password" placeholder="Password"/>
                                         <div class="button-box">

@@ -15,4 +15,14 @@ public class FurnServiceImpl implements IFurnService {
     public List<Furn> queryFurns() {
         return furnDAO.queryFurns();
     }
+
+    @Override
+    public boolean addFurn(Furn furn) {
+        return furnDAO.addFurn(furn);
+    }
+
+    @Override
+    public int delFurn(Furn furn) {
+        return furnDAO.delFurn(furn);
+    }
 }
