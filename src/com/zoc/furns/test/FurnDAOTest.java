@@ -49,4 +49,9 @@ public class FurnDAOTest {
             System.out.println(furn);
         }
     }
+
+    @Test
+    public void getTotalRow() {
+        System.out.println(furnDAO.getTotalRow());
+    }
 }

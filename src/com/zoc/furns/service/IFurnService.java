@@ -1,6 +1,7 @@
 package com.zoc.furns.service;
 
 import com.zoc.furns.entity.Furn;
+import com.zoc.furns.entity.Page;
 
 import java.util.List;
 
@@ -23,4 +24,8 @@ public interface IFurnService {
      * 根据id修改furn
      */
     public int updateFurn(Furn furn);
+
+    // public int getTotalRow();
+
+    public Page<Furn> page(int pageNo,int pageSize);
 }

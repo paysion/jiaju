@@ -25,4 +25,16 @@ public interface FurnDAO {
      * @return
      */
     public int updateFurn(Furn furn);
+
+    /**
+     * 获取数据库中总记录数
+     * @return
+     */
+    public int getTotalRow();
+
+    /**
+     * 获取当前页的Furn
+     * @return
+     */
+    public List<Furn> getPageItems(int begin,int pageSize);
 }

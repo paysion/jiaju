@@ -109,7 +109,7 @@
                             </thead>
                             <tbody>
                             <%--取出furns集合，循环显示 getItems()--%>
-                            <c:forEach items="${requestScope.furns}" var="furn">
+                            <c:forEach items="${requestScope.page.items}" var="furn">
                                 <tr>
                                     <td class="product-thumbnail">
                                         <a href="#"><img class="img-responsive ml-3" src="${furn.imgPath}"
@@ -135,6 +135,15 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
+            <ul>
+                <li><a href="manage/furnServlet?action=page&pageNo=">上一页</a> </li>
+                <li><a class="active" href="#">3</a></li>
+                <li><a href="#">4</a> </li>
+                <li><a href="#">5</a> </li>
+                <li><a href="#">下一页</a> </li>
+            </ul>
         </div>
     </div>
 </div>

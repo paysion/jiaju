@@ -41,4 +41,18 @@ public class FurnDAOImpl extends BasicDAO<Furn> implements FurnDAO {
         String sql = "UPDATE furn SET NAME=?,maker=?,price=?,sales=?,stock=?,img_path=? WHERE id=?";
         return update(sql,furn.getName(),furn.getMaker(),furn.getPrice(),furn.getSales(),furn.getStock(),furn.getImgPath(),furn.getId());
     }
+
+    @Override
+    public int getTotalRow() {
+        String sql = "SELECT COUNT(*) FROM furn";
+        // Java基本类中包装类
+        return  ((Number) queryScalar(sql)).intValue();
+    }
+
+    @Override
+    public List<Furn> getPageItems(int begin, int pageSize) {
+        // 这里的begin应该是pageNo的，但是这个pageNo需要自己计算，把这个计算放到service中去做
+        String sql = "SELECT `id`, `name` , `maker`, `price`, `sales`, `stock`, `img_path` imgPath FROM furn LIMIT ? , ?";
+        return  queryMulti(sql, Furn.class, begin, pageSize);
+    }
 }

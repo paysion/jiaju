@@ -1,6 +1,7 @@
 package com.zoc.furns.web;
 
 import com.zoc.furns.entity.Furn;
+import com.zoc.furns.entity.Page;
 import com.zoc.furns.service.IFurnService;
 import com.zoc.furns.service.impl.FurnServiceImpl;
 import com.zoc.furns.utils.DataUtils;
@@ -73,6 +74,18 @@ public class FurnServlet extends BasicServlet{
         req.setAttribute("furn",furn);
         // 4.请求转到到furn_update页面
         req.getRequestDispatcher("/views/manage/furn_update.jsp").forward(req,resp);
+    }
+
+    protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1.从前端接收pageNo和pageSize
+        int pageNo = DataUtils.parseInt(req.getParameter("pageNo"), 1);
+        int pageSize = DataUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
+        // 2.获取pageNo的items
+        Page<Furn> page = furnService.page(pageNo, pageSize);
+        // 将items放入req的域中
+        req.setAttribute("page",page);
+        // 请求转发
+        req.getRequestDispatcher("/views/manage/furn_manage.jsp").forward(req,resp);
     }
 
     protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
