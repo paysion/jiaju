@@ -33,10 +33,20 @@ public class FurnDAOTest {
     @Test
     public void delFurnTest(){
         Furn furn = new Furn(8,"zzz","xxx",new BigDecimal("120.00"),222,333," ");
-        if (furnDAO.delFurn(furn) > 0) {
+        if (furnDAO.delFurn(8) > 0) {
             System.out.println("删除 " + furn + " 成功");
         } else {
             System.out.println("删除失败");
+        }
+    }
+
+    @Test
+    public void queryFurn(){
+        Furn furn = furnDAO.queryFurn(11);
+        if ("".equals(furn) || furn==null) {
+            System.out.println("查询失败~");
+        } else {
+            System.out.println(furn);
         }
     }
 }

@@ -10,5 +10,17 @@ public interface IFurnService {
 
     public boolean addFurn(Furn furn);
 
-    public int delFurn(Furn furn);
+    public int delFurn(int id);
+
+    /**
+     * 根据id查询furn
+     * @param id
+     * @return
+     */
+    public Furn showFurn(int id);
+
+    /**
+     * 根据id修改furn
+     */
+    public int updateFurn(Furn furn);
 }

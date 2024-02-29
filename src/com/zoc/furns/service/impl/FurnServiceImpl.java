@@ -22,7 +22,17 @@ public class FurnServiceImpl implements IFurnService {
     }
 
     @Override
-    public int delFurn(Furn furn) {
-        return furnDAO.delFurn(furn);
+    public int delFurn(int id) {
+        return furnDAO.delFurn(id);
+    }
+
+    @Override
+    public Furn showFurn(int id) {
+        return furnDAO.queryFurn(id);
+    }
+
+    @Override
+    public int updateFurn(Furn furn) {
+        return furnDAO.updateFurn(furn);
     }
 }

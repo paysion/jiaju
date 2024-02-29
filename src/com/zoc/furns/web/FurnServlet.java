@@ -46,11 +46,33 @@ public class FurnServlet extends BasicServlet{
     }
 
 
-    protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 使用DataUtils工具获得相应的furn对象
+    protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 前端传递furn对象,使用DateUtils接收
         Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
-        furnService.delFurn(furn);
-        req.getRequestDispatcher("/views/manage/furn_manage.jsp").forward(req,resp);
+        furnService.updateFurn(furn);
+        // 不管，直接重定向
+        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=list");
+    }
+
+    protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        // 使用DataUtils工具获得相应的furn对象,删除时候前端传过来的文本好处理，对象处理不了
+        // Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
+        furnService.delFurn(id);
+        // req.getRequestDispatcher("/views/manage/furn_manage.jsp").forward(req,resp);
+        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=list");
+    }
+
+
+    protected void showFurn(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1.前端后发送一个id到后端,并用DataUtils处理为int类型
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        // 2.根据id从DB查询对应的Furn
+        Furn furn = furnService.showFurn(id);
+        // 3.将furn放进req的请求域中
+        req.setAttribute("furn",furn);
+        // 4.请求转到到furn_update页面
+        req.getRequestDispatcher("/views/manage/furn_update.jsp").forward(req,resp);
     }
 
     protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

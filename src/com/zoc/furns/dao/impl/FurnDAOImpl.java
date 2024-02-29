@@ -6,7 +6,7 @@ import com.zoc.furns.entity.Furn;
 
 import java.util.List;
 
-public class FurnDAOImpl extends BasicDAO implements FurnDAO {
+public class FurnDAOImpl extends BasicDAO<Furn> implements FurnDAO {
     @Override
     public List<Furn> queryFurns() {
         // 为什么不用select *？
@@ -25,8 +25,20 @@ public class FurnDAOImpl extends BasicDAO implements FurnDAO {
 
     // 这里其实是根据id来删除furn
     @Override
-    public int delFurn(Furn furn) {
+    public int delFurn(int id) {
         String sql = "DELETE FROM furn WHERE id=?";
-        return update(sql, furn.getId());
+        return update(sql, id);
+    }
+
+    @Override
+    public Furn queryFurn(int id) {
+        String sql = "SELECT `id`, `name` , `maker`, `price`, `sales`, `stock`, `img_path` imgPath FROM furn WHERE id=?";
+        return querySingle(sql, Furn.class, id);
+    }
+
+    @Override
+    public int updateFurn(Furn furn) {
+        String sql = "UPDATE furn SET NAME=?,maker=?,price=?,sales=?,stock=?,img_path=? WHERE id=?";
+        return update(sql,furn.getName(),furn.getMaker(),furn.getPrice(),furn.getSales(),furn.getStock(),furn.getImgPath(),furn.getId());
     }
 }
