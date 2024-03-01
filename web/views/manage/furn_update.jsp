@@ -70,7 +70,7 @@
         <h3 class="cart-page-title">家居后台管理-修改家居</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <form action="manage/furnServlet?id=${requestScope.furn.id}&action=update" method="post">
+                <form action="manage/furnServlet?id=${requestScope.furn.id}&action=update&pageNo=${param.pageNo}" method="post">
                     <div class="table-content table-responsive cart-table-content">
                         <table>
                             <thead>

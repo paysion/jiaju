@@ -16,11 +16,11 @@
         // 页面加载完毕后执行function(){}
         $(function () {
             // 绑定点击事件
-            $("a.deleteCss").click(function (){
+            $("a.deleteCss").click(function () {
                 // 获取要删除家具的名字
                 var furnName = $(this).parent().parent().find("td:eq(1)").text();
                 // confirm方法会弹出一个确认窗口  点击确定返回true  点击取消返回false
-                return confirm("确定删除【"+furnName+"】？");
+                return confirm("确定删除【" + furnName + "】？");
             })
         })
     </script>
@@ -125,8 +125,10 @@
                                             ${furn.stock}
                                     </td>
                                     <td class="product-remove">
-                                        <a href="manage/furnServlet?action=showFurn&id=${furn.id}"><i class="icon-pencil"></i></a>
-                                        <a class="deleteCss" href="manage/furnServlet?action=delete&id=${furn.id}"><i class="icon-close"></i></a>
+                                        <a href="manage/furnServlet?action=showFurn&id=${furn.id}&pageNo=${requestScope.page.pageNo}"><i
+                                                class="icon-pencil"></i></a>
+                                        <a class="deleteCss" href="manage/furnServlet?action=delete&id=${furn.id}"><i
+                                                class="icon-close"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -138,11 +140,28 @@
         </div>
         <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
             <ul>
-                <li><a href="manage/furnServlet?action=page&pageNo=">上一页</a> </li>
-                <li><a class="active" href="#">3</a></li>
-                <li><a href="#">4</a> </li>
-                <li><a href="#">5</a> </li>
-                <li><a href="#">下一页</a> </li>
+                <%--使用<c if>标签对上一页做判断--%>
+                <c:if test="${requestScope.page.pageNo>1}">
+                    <li><a href="manage/furnServlet?action=page&pageNo=${requestScope.page.pageNo - 1}">上一页</a></li>
+                </c:if>
+                <%--<li><a class="active" href="#">3</a></li>--%>
+                <%--<li><a href="#">4</a></li>--%>
+                <%--<li><a href="#">5</a></li>--%>
+                <c:set var="begin" value="1"/>
+                <c:set var="end" value="${requestScope.page.pageTotalCount}"/>
+                <c:forEach begin="${begin}" end="${end}" var="i">
+                    <c:if test="${i == requestScope.page.pageNo}">
+                        <li><a class="active" href="manage/furnServlet?action=page&pageNo=${i}">${i}</a>
+                    </c:if>
+                    <c:if test="${i != requestScope.page.pageNo}">
+                        <li><a href="manage/furnServlet?action=page&pageNo=${i}">${i}</a>
+                    </c:if>
+                </c:forEach>
+                <%--使用<c if>标签对下一页做判断--%>
+                <c:if test="${requestScope.page.pageNo < requestScope.page.pageTotalCount}">
+                    <li><a href="manage/furnServlet?action=page&pageNo=${requestScope.page.pageNo + 1}">下一页</a></li>
+                </c:if>
+                <li><a href="#">共${requestScope.page.pageTotalCount}页</a></li>
             </ul>
         </div>
     </div>

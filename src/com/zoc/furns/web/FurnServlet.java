@@ -52,7 +52,9 @@ public class FurnServlet extends BasicServlet{
         Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
         furnService.updateFurn(furn);
         // 不管，直接重定向
-        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=list");
+        // resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=list");
+        // 1.前端点击修改，除了传递furn对象，还应该带上pageNo，而且重定向的页面也不应该是list，而是page
+        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=page&pageNo=" + req.getParameter("pageNo"));
     }
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
