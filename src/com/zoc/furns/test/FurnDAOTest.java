@@ -54,4 +54,9 @@ public class FurnDAOTest {
     public void getTotalRow() {
         System.out.println(furnDAO.getTotalRow());
     }
+
+    @Test
+    public void getTotalRowByName(){
+        System.out.println(furnDAO.getTotalRowByName("桌子"));
+    }
 }

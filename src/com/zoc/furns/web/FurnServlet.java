@@ -43,7 +43,7 @@ public class FurnServlet extends BasicServlet{
 //        }
         Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
         furnService.addFurn(furn);
-        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=page&pageNo=" + req.getParameter("pageNo"));
     }
 
 
@@ -63,7 +63,7 @@ public class FurnServlet extends BasicServlet{
         // Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
         furnService.delFurn(id);
         // req.getRequestDispatcher("/views/manage/furn_manage.jsp").forward(req,resp);
-        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manage/furnServlet?action=page&pageNo=" + req.getParameter("pageNo"));
     }
 
 

@@ -58,4 +58,23 @@ public class FurnServiceImpl implements IFurnService {
         page.setItems(pageItems);
         return page;
     }
+
+    @Override
+    public Page<Furn> pageByName(int pageNo, int pageSize, String name) {
+        Page<Furn> page = new Page<>();
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+        int totalRowByName = furnDAO.getTotalRowByName(name);
+        page.setPageTotalCount(totalRowByName);
+        int pageTotalCount = totalRowByName / pageSize;
+        if (pageTotalCount % pageSize > 0) {
+            pageTotalCount += 1;
+        }
+        page.setPageTotalCount(pageTotalCount);
+        // 获取items之前要先获取begin
+        int begin = (pageNo - 1)*pageSize;
+        List<Furn> pageItemsByName = furnDAO.getPageItemsByName(begin, pageSize, name);
+        page.setItems(pageItemsByName);
+        return page;
+    }
 }

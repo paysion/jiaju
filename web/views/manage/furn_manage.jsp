@@ -127,7 +127,7 @@
                                     <td class="product-remove">
                                         <a href="manage/furnServlet?action=showFurn&id=${furn.id}&pageNo=${requestScope.page.pageNo}"><i
                                                 class="icon-pencil"></i></a>
-                                        <a class="deleteCss" href="manage/furnServlet?action=delete&id=${furn.id}"><i
+                                        <a class="deleteCss" href="manage/furnServlet?action=delete&id=${furn.id}&pageNo=${requestScope.page.pageNo}"><i
                                                 class="icon-close"></i></a>
                                     </td>
                                 </tr>

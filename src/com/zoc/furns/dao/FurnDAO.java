@@ -37,4 +37,16 @@ public interface FurnDAO {
      * @return
      */
     public List<Furn> getPageItems(int begin,int pageSize);
+
+    /**
+     * 根据名字获取数据库中总记录数
+     * @return
+     */
+    public int getTotalRowByName(String name);
+
+    /**
+     * 根据名字获取当前页的Furn
+     * @return
+     */
+    public List<Furn> getPageItemsByName(int begin,int pageSize,String name);
 }

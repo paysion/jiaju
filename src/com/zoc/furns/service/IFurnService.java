@@ -28,4 +28,6 @@ public interface IFurnService {
     // public int getTotalRow();
 
     public Page<Furn> page(int pageNo,int pageSize);
+
+    public Page<Furn> pageByName(int pageNo,int pageSize,String name);
 }
