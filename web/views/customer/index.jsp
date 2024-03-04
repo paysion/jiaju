@@ -36,15 +36,16 @@
                             <a href="javascript:void(0)" class="header-action-btn search-btn"><i
                                     class="icon-magnifier"></i></a>
                             <div class="dropdown_search">
-                                <form class="action-form" action="#">
-                                    <input class="form-control" placeholder="Enter your search key" type="text">
+                                <form class="action-form" action="customerFurnServlet">
+                                    <input type="hidden" name="action" value="pageByName">
+                                    <input class="form-control" name="name" placeholder="请输入你要搜索的家具名" type="text">
                                     <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                                 </form>
                             </div>
                         </div>
                         <!-- Single Wedge Start -->
                         <div class="header-bottom-set dropdown">
-                            <a href="../member/login.html">登录|注册</a>
+                            <a href="../member/login.jsp">登录|注册</a>
                         </div>
                         <div class="header-bottom-set dropdown">
                             <a href="#">后台管理</a>
@@ -158,16 +159,28 @@
 <!--  Pagination Area Start -->
 <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
     <ul>
-        <%--todo 首页的分页功能--%>
-        <li><a href="#">首页</a></li>
-        <li><a href="#">上页</a></li>
-        <li><a class="active" href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">下页</a></li>
-        <li><a href="#">末页</a></li>
-        <li><a>共10页</a></li>
-        <li><a>共90记录</a></li>
+        <%-- 首页的分页导航 --%>
+        <li><a href="${requestScope.page.url}&pageNo=1">首页</a></li>
+            <%--使用<c if>标签对上一页做判断--%>
+        <c:if test="${requestScope.page.pageNo>1}">
+            <li><a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo - 1}">上一页</a></li>
+        </c:if>
+
+        <c:set var="begin" value="1"></c:set>
+        <c:set var="end" value="${requestScope.page.pageTotalCount}"></c:set>
+        <c:forEach begin="${begin}" end="${end}" var="i">
+            <c:if test="${i == requestScope.page.pageNo}">
+                <li><a class="active" href="${requestScope.page.url}&pageNo=${i}">${i}</a></li>
+            </c:if>
+            <c:if test="${i != requestScope.page.pageNo}">
+                <li><a href="${requestScope.page.url}&pageNo=${i}">${i}</a></li>
+            </c:if>
+        </c:forEach>
+        <c:if test="${requestScope.page.pageNo < requestScope.page.pageTotalCount}">
+            <li><a href="${requestScope.page.url}&pageNo=${requestScope.page.pageNo + 1}">下页</a></li>
+        </c:if>
+        <li><a>共${requestScope.page.pageTotalCount}页</a></li>
+        <li><a>共${requestScope.page.totalRow}记录</a></li>
     </ul>
 </div>
 <!--  Pagination Area End -->

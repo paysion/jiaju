@@ -27,4 +27,27 @@ public class CustomerFurnServlet extends BasicServlet{
         req.getRequestDispatcher("/views/customer/index.jsp").forward(req, resp);
     }
 
+
+    protected void pageByName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1.接收前端传递的pageNo、pageSize 和 name
+        int pageNo = DataUtils.parseInt(req.getParameter("pageNo"),1);
+        int pageSize = DataUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
+        // 这里漏了对name要进行非空判断
+        String name = req.getParameter("name");
+        if (null == name) {
+            name = "";
+        }
+        // 2.调用furnService查询page对象
+        Page<Furn> page = furnService.pageByName(pageNo, pageSize, name);
+        // 构建url，便于将搜索条件name返回给前端
+        StringBuilder url = new StringBuilder("customerFurnServlet?action=pageByName");
+        if (!"".equals(name)) {
+            url.append("&name=").append(name);
+        }
+        page.setUrl(url.toString());
+        // 3.将page对象放入req的域中
+        req.setAttribute("page",page);
+        // 4.请求转发 （需要修改表单的就请求重定向，不需要修改表单的就请求转发？ 为什么不用重定向？因为重定向会丢失req的域
+        req.getRequestDispatcher("/views/customer/index.jsp").forward(req, resp);
+    }
 }

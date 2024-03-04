@@ -227,7 +227,8 @@
                 <div class="row flex-sm-row-reverse">
                     <div class="col-md-6 text-right">
                         <div class="payment-link">
-                            <img src="#" alt="">
+                            <%--img src会重新发起请求，请求url为base标签，即localhost:8080/jiaju_mall--%>
+                            <%--<img src="#" alt="">--%>
                         </div>
                     </div>
                     <div class="col-md-6 text-left">

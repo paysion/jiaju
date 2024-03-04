@@ -40,7 +40,7 @@ public class MemberServlet extends BasicServlet{
             }
         } else {
             // 返回注册页面
-            req.getRequestDispatcher("/views/member/login.html").forward(req,resp);
+            req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
         }
 
         System.out.println("RegisterServlet 被调用了...");
@@ -61,9 +61,9 @@ public class MemberServlet extends BasicServlet{
         Member member = new Member(null, username, password, email);
         if (memberService.login(member) != null) {
             // 跳转登录成功页面
-            req.getRequestDispatcher("/views/member/login_ok.html").forward(req,resp);
+            req.getRequestDispatcher("/views/member/login_ok.jsp").forward(req,resp);
         } else {
-            req.getRequestDispatcher("/views/member/login.html").forward(req,resp);
+            req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
         }
     }
 }
