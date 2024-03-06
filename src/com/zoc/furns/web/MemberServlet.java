@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
+
 public class MemberServlet extends BasicServlet{
     //定义一个MemberService属性
     private IMemberService memberService = new MemberServiceImpl();
@@ -26,6 +28,22 @@ public class MemberServlet extends BasicServlet{
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
+        // 获取用户提交的验证码
+        String code = req.getParameter("code");
+
+        // 从session中获取验证码
+        String token = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        // 立即删除验证码，防止验证码被重复使用
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+
+        // 判断验证码是否正确
+        if (token!=null && token.equalsIgnoreCase(code)) {
+            // 这里不做处理
+        } else {
+            req.setAttribute("msg","验证码错误");
+            // 返回注册页面
+            req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
+        }
 
         // 判断用户是否存在
         if (!memberService.isExistsUsername(username)) {
@@ -33,7 +51,7 @@ public class MemberServlet extends BasicServlet{
             Member member = new Member(null, username, password, email);
             if (memberService.registerMember(member)) {
                 // 请求跳转到注册成功页面
-                req.getRequestDispatcher("/views/member/register_ok.html").forward(req,resp);
+                req.getRequestDispatcher("/views/member/register_ok.jsp").forward(req,resp);
                 System.out.println("注册成功");
             } else {
                 req.getRequestDispatcher("/views/member/register_fail.html").forward(req,resp);
@@ -59,11 +77,40 @@ public class MemberServlet extends BasicServlet{
         String password = req.getParameter("password");
         String email = req.getParameter("email");
         Member member = new Member(null, username, password, email);
+        // 获取用户输入的验证码
+        String loginCode = req.getParameter("loginCode");
+
+        // 校验登录验证码
+        String token = (String)req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+
+        if (token!=null && token.equalsIgnoreCase(loginCode)) {
+            // 不做处理
+        } else {
+            req.setAttribute("msg","验证码错误");
+            req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
+        }
+
+
         if (memberService.login(member) != null) {
+            // 将member放入session
+            req.getSession().setAttribute("member",member);
             // 跳转登录成功页面
             req.getRequestDispatcher("/views/member/login_ok.jsp").forward(req,resp);
         } else {
+            // 用户为空,登录失败，将错误信息放入到req域中
+            req.setAttribute("msg","用户名或密码错误");
+            req.setAttribute("username",username);
             req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
         }
     }
+
+    protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 销毁当前用户的session
+        req.getSession().invalidate();
+        // 重定向到网站首页
+        resp.sendRedirect(req.getContextPath());
+    }
+
+    // todo 将校验验证码的方法提取出来
 }

@@ -14,6 +14,32 @@
     <script type="text/javascript">
         // 页面加载完成之后
         $(function () {
+            // 给验证码绑定单击事件
+            $("#codeImgLogin").click(function () {
+                // src = http://localhost:8080/kaptchaServlet
+                this.src = "<%=request.getContextPath()%>/kaptchaServlet?d=" + new Date();
+            })
+            $("#codeImgRegister").click(function () {
+                this.src = "<%=request.getContextPath()%>/kaptchaServlet?d=" + new Date();
+            })
+
+            // // 给登录绑定单机事件
+            // $("#login-btn").click(function () {
+            //     // 验证码：浏览器这里验证不能为空
+            //     var codeText = $("#code").val();
+            //     //去掉验证码前后空格
+            //     codeText = $.trim(codeText);
+            //     if (codeText == null || codeText == "") {
+            //         //提示
+            //         $("span.errorMsg").text("验证码不能为空！");
+            //         return false;
+            //     }
+            //
+            //     // 给出注册信息通过
+            //     $("span.errorMsg").text("正在登录。。");
+            //     return true; //暂时不提交.
+            // })
+
             // 给注册绑定单击事件
             $("#sub-btn").click(function () {
                 // 验证用户名：必须由字母，数字下划线组成，并且长度为3到10位
@@ -60,6 +86,17 @@
                     $("span.errorMsg").text("邮箱格式不正确");
                     return false;
                 }
+
+                // 验证码：浏览器这里验证不能为空
+                var codeText = $("#code").val();
+                //去掉验证码前后空格
+                codeText = $.trim(codeText);
+                if (codeText == null || codeText == "") {
+                    //提示
+                    $("span.errorMsg").text("验证码不能为空！");
+                    return false;
+                }
+
                 // 给出注册信息通过
                 $("span.errorMsg").text("注册信息通过");
                 return true; //暂时不提交.
@@ -124,18 +161,24 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="adminServlet" method="post">
+                                    <%--提示错误信息--%>
+                                    <span style="font-size: 18pt;font-weight: bold;float: right;color: gainsboro">
+                                        ${requestScope.msg}
+                                    </span>
+                                    <form action="memberServlet" method="post">
                                         <!-- 增加隐藏域表示login请求 -->
                                         <input type="hidden" name="action" value="login">
                                         <input type="text" name="username" placeholder="Username"/>
                                         <input type="password" name="password" placeholder="Password"/>
+                                        <input type="text" id="loginCode" name="loginCode" style="width: 50%"
+                                               placeholder="验证码"/>　　<img id="codeImgLogin" alt="" src="kaptchaServlet">
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox"/>
                                                 <a class="flote-none" href="javascript:void(0)">Remember me</a>
                                                 <a href="#">Forgot Password?</a>
                                             </div>
-                                            <button type="submit"><span>Login</span></button>
+                                            <button type="submit" id="login-btn"><span>Login</span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -153,8 +196,9 @@
                                         <input type="password" id="password" name="password" placeholder="输入密码"/>
                                         <input type="password" id="repwd" name="user-password" placeholder="确认密码"/>
                                         <input name="email" id="email" placeholder="电子邮件" type="email"/>
-                                        <input type="text" id="code" name="code" style="width: 50%" id="code"
-                                               placeholder="验证码"/>　　<img alt="" src="assets/images/code/code.bmp">
+                                        <%-- 此处的kaptchaServlet返回的是一张图片，故src可以填--%>
+                                        <input type="text" id="code" name="code" style="width: 50%"
+                                               placeholder="验证码"/>　　<img id="codeImgRegister" alt="" src="kaptchaServlet">
                                         <div class="button-box">
                                             <button type="submit" id="sub-btn"><span>会员注册</span></button>
                                         </div>

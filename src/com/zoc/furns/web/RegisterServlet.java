@@ -33,7 +33,7 @@
 //            Member member = new Member(null, username, password, email);
 //            if (memberService.registerMember(member)) {
 //                // 请求跳转到注册成功页面
-//                req.getRequestDispatcher("/views/member/register_ok.html").forward(req,resp);
+//                req.getRequestDispatcher("/views/member/register_ok.jsp").forward(req,resp);
 //                System.out.println("注册成功");
 //            } else {
 //                req.getRequestDispatcher("/views/member/register_fail.html").forward(req,resp);

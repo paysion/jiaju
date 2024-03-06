@@ -27,6 +27,19 @@
                     </div>
                 </div>
                 <!-- Header Logo End -->
+                <div class="col align-self-center">
+                    <div class="header-actions">
+                        <div class="header-bottom-set dropdown">
+                            <a>欢迎: ${sessionScope.member.username}</a>
+                        </div>
+                        <div class="header-bottom-set dropdown">
+                            <a href="#">订单管理</a>
+                        </div>
+                        <div class="header-bottom-set dropdown">
+                            <a href="memberServlet?action=logout">安全退出</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -57,7 +70,8 @@
             <div class="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div class="login-register-wrapper">
                     <div class="login-register-tab-list nav">
-                        <a class="active"  href="index.html">
+                        <%-- 这里应该指向index.jsp而不是views/customer/index.jsp，应该程序的入口是index.jsp --%>
+                        <a class="active"  href="index.jsp">
                             <h4>登录成功, 返回首页</h4>
                         </a>
                     </div>
