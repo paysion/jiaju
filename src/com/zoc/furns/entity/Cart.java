@@ -37,7 +37,7 @@ public class Cart {
     }
 
     /**
-     *
+     * 获取购物车商品总数
      * @return
      */
     public int getTotalCount() {
@@ -55,22 +55,27 @@ public class Cart {
      * @return
      */
     public BigDecimal getCartTotalPrice(){
-        return new BigDecimal(0);
+        BigDecimal cartTotalPrice = new BigDecimal(0);
+        Set<Integer> keys = items.keySet();
+        for (Integer id : keys) {
+            cartTotalPrice = items.get(id).getPrice().add(items.get(id).getTotalPrice());
+        }
+        return cartTotalPrice;
     }
 
     /**
-     * 修改购物车商品数量
+     * 修改购物车商品数量和总价，count的值是从前端传递过来的
      * @return
      */
     public void updateCount(int id, int count){
-        String s1 = new StringBuilder("Ja").append("va").toString();
-        System.out.println(s1.intern()==s1);
-        String s2 = new StringBuilder("ja").append("va").toString();
-        System.out.println(s2.intern()==s2);
-        String s3 = new StringBuilder("JA").append("VA").toString();
-        System.out.println(s3.intern()==s3);
-        String s4 = new StringBuilder("go").append("od").toString();
-        System.out.println(s4.intern()==s4);
+        // 1.根据id找到要修改的cartItem对象
+        CartItem cartItem = items.get(id);
+        // 老是忘了非空判断，不过这个非空判断有什么用呢？
+        if (null != cartItem) {
+            cartItem.setCount(count);
+            // 这里要乘的数量最好是用getCount()的方法，保持事务的一致性
+            cartItem.setTotalPrice(cartItem.getPrice().multiply(new BigDecimal(cartItem.getCount())));
+        }
     }
 
     public HashMap<Integer, CartItem> getItems() {

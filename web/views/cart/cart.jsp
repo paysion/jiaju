@@ -14,6 +14,30 @@
 
     <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
     <script>
+        $(function () {
+            // todo 点击“-”号，不是减1，而是减2
+            var CartPlusMinus = $(".cart-plus-minus");
+            CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
+            CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+            $(".qtybutton").on("click", function() {
+                var $button = $(this);
+                var oldValue = $button.parent().find("input").val();
+                if ($button.text() === "+") {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 1) {
+                        var newVal = parseFloat(oldValue) - 1;
+                    } else {
+                        newVal = 1;
+                    }
+                }
+                $button.parent().find("input").val(newVal);
+                var furnId = $button.parent().find("input").attr("furnId");
+                // 发出修改购物车的请求
+                location.href = "cartServlet?action=updateCount&id="+furnId+"&count="+newVal;
+            });
+        })
     </script>
 </head>
 
@@ -29,7 +53,7 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="Site Logo"/></a>
+                        <a href="index.jsp"><img src="assets/images/logo/logo.png" alt="Site Logo"/></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -66,7 +90,7 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.html"><img width="280px" src="assets/images/logo/logo.png"
+                        <a href="index.jsp"><img width="280px" src="assets/images/logo/logo.png"
                                                   alt="Site Logo"/></a>
                     </div>
                 </div>
@@ -125,7 +149,8 @@
                                     <td class="product-price-cart"><span class="amount">￥${entry.value.price}</span></td>
                                     <td class="product-quantity">
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1"/>
+                                            <input furnId="${entry.value.id}" class="cart-plus-minus-box"
+                                                   type="text" name="qtybutton" value="${entry.value.count}"/>
                                         </div>
                                     </td>
                                     <td class="product-subtotal">￥${entry.value.totalPrice}</td>
@@ -140,7 +165,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="cart-shiping-update-wrapper">
-                                <h4>共xx件商品 总价 xxxx.xx元</h4>
+                                <h4>共${sessionScope.cart.totalCount}件商品 总价${sessionScope.cart.cartTotalPrice}元</h4>
                                 <div class="cart-shiping-update">
                                     <a href="#">购 物 车 结 账</a>
                                 </div>

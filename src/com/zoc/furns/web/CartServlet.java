@@ -19,7 +19,7 @@ public class CartServlet extends BasicServlet {
 
         // 3.从session中获取cart对象
         Cart cart = (Cart)req.getSession().getAttribute("cart");
-        // 4.判断cart1是否为空,为空则代表session中没有cart1对象
+        // 4.判断cart是否为空,为空则代表session中没有cart1对象
         if (null == cart) {
             cart = new Cart();
             req.getSession().setAttribute("cart",cart);
@@ -30,5 +30,20 @@ public class CartServlet extends BasicServlet {
         // 4.添加完毕，返回添加家居的页面
         String referer = req.getHeader("Referer");
         resp.sendRedirect(referer);
+    }
+
+
+    protected void updateCount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1.从前端获取id和count
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        int count = DataUtils.parseInt(req.getParameter("count"), 0);
+        // 2.从session中取cart对象
+        Cart cart = (Cart)req.getSession().getAttribute("cart");
+        // cart自己本身就是数据模型，自带方法
+        if (null != cart) {
+            cart.updateCount(id,count);
+        }
+        // 更新完毕，返回添加家居的页面，因为要涉及到更新数据，所以要使用重定向
+        resp.sendRedirect(req.getHeader("Referer"));
     }
 }
