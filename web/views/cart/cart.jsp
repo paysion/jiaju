@@ -15,6 +15,17 @@
     <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
     <script>
         $(function () {
+            // 给清空购物车绑定一个点击事件
+            $("a.clearCart").click (function () {
+                return confirm("你确认要删除购物车？");
+            })
+
+            // 给删除购物车绑定一个点击事件
+            $("a.delCart").click(function () {
+                var furnName = $(this).parent().parent().find("td:eq(1)").text();
+                return confirm("确定删除【"+furnName+"】？");
+            })
+
             // todo 点击“-”号，不是减1，而是减2
             var CartPlusMinus = $(".cart-plus-minus");
             CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
@@ -155,7 +166,7 @@
                                     </td>
                                     <td class="product-subtotal">￥${entry.value.totalPrice}</td>
                                     <td class="product-remove">
-                                        <a href="#"><i class="icon-close"></i></a>
+                                        <a class="delCart" href="cartServlet?action=delItem&id=${entry.value.id}"><i class="icon-close"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -171,7 +182,7 @@
                                 </div>
                                 <div class="cart-clear">
                                     <button>继 续 购 物</button>
-                                    <a href="#">清 空 购 物 车</a>
+                                    <a class="clearCart" href="cartServlet?action=clear">清 空 购 物 车</a>
                                 </div>
                             </div>
                         </div>

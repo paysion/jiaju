@@ -78,6 +78,14 @@ public class Cart {
         }
     }
 
+    public void deleteItem(int id){
+        items.remove(id);
+    }
+
+    public void clear(){
+        items.clear();
+    }
+
     public HashMap<Integer, CartItem> getItems() {
         return items;
     }
