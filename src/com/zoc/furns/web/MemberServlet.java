@@ -31,18 +31,12 @@ public class MemberServlet extends BasicServlet{
         // 获取用户提交的验证码
         String code = req.getParameter("code");
 
-        // 从session中获取验证码
-        String token = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
-        // 立即删除验证码，防止验证码被重复使用
-        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
-
         // 判断验证码是否正确
-        if (token!=null && token.equalsIgnoreCase(code)) {
-            // 这里不做处理
-        } else {
+        if (!validateCode(req,code)) {
             req.setAttribute("msg","验证码错误");
             // 返回注册页面
             req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
+            return;
         }
 
         // 判断用户是否存在
@@ -75,22 +69,15 @@ public class MemberServlet extends BasicServlet{
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        String email = req.getParameter("email");
-        Member member = new Member(null, username, password, email);
+        Member member = new Member(null, username, password, null);
         // 获取用户输入的验证码
         String loginCode = req.getParameter("loginCode");
 
-        // 校验登录验证码
-        String token = (String)req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
-        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
-
-        if (token!=null && token.equalsIgnoreCase(loginCode)) {
-            // 不做处理
-        } else {
+        if (!validateCode(req,loginCode)) {
             req.setAttribute("msg","验证码错误");
             req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
+            return;
         }
-
 
         if (memberService.login(member) != null) {
             // 将member放入session
@@ -112,5 +99,14 @@ public class MemberServlet extends BasicServlet{
         resp.sendRedirect(req.getContextPath());
     }
 
-    // todo 将校验验证码的方法提取出来
+    // 将校验验证码的方法提取出来
+    private boolean validateCode(HttpServletRequest req, String code){
+        // 从session中获取验证码
+        String token = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        // 立即删除验证码，防止验证码被重复使用
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+
+        // 判断验证码是否正确
+        return token!=null && token.equalsIgnoreCase(code);
+    }
 }
