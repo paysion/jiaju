@@ -2,7 +2,7 @@ package com.zoc.furns.web;
 
 import com.zoc.furns.entity.Order;
 import com.zoc.furns.service.IOrderService;
-import com.zoc.furns.service.impl.orderServiceImpl;
+import com.zoc.furns.service.impl.OrderServiceImpl;
 import com.zoc.furns.utils.DataUtils;
 
 import javax.servlet.ServletException;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public class OrderServlet extends BasicServlet{
 
-    private IOrderService orderService = new orderServiceImpl();
+    private IOrderService orderService = new OrderServiceImpl();
 
-    protected void saveOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+/*    protected void saveOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1.从前端获取oder订单对象, req.getParameterMap();得到的是Map<String,String[]>类型
         Order order = DataUtils.copyParamToBean(req.getParameterMap(), new Order());
         // 2.将order写入数据库,写入成功请求转发到order.jsp页面，失败输出失败信息
@@ -24,7 +24,7 @@ public class OrderServlet extends BasicServlet{
         } else {
             System.out.println("添加订单失败~");
         }
-    }
+    }*/
 
     protected void showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1.数据库读取数据
