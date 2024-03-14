@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Order {
 
-    private Integer id;
+    private String id;
     private Date createTime;
     private BigDecimal price;
     private Integer status;
@@ -14,7 +14,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Integer id, Date createTime, BigDecimal price, Integer status, Integer memberId) {
+    public Order(String id, Date createTime, BigDecimal price, Integer status, Integer memberId) {
         this.id = id;
         this.createTime = createTime;
         this.price = price;
@@ -22,11 +22,11 @@ public class Order {
         this.memberId = memberId;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
