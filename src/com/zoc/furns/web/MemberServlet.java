@@ -69,7 +69,7 @@ public class MemberServlet extends BasicServlet{
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        Member member = new Member(null, username, password, null);
+        Member member = memberService.login(new Member(null, username, password, null));
         // 获取用户输入的验证码
         String loginCode = req.getParameter("loginCode");
 
@@ -79,7 +79,7 @@ public class MemberServlet extends BasicServlet{
             return;
         }
 
-        if (memberService.login(member) != null) {
+        if (member != null) {
             // 将member放入session
             req.getSession().setAttribute("member",member);
             // 跳转登录成功页面
