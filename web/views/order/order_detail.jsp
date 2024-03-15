@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -6,20 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
     <base href="<%=request.getContextPath() + "/"%>">
-    <!-- 移动端适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
-    <link rel="stylesheet" href="assets/css/style.min.css">
-    <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-        $()
-    </script>
+    <link rel="stylesheet" href="assets/css/style.min.css"/>
 </head>
 
 <body>
 <!-- Header Area start  -->
 <div class="header section">
+    <!-- Header Top Message Start -->
     <!-- Header Top  End -->
     <!-- Header Bottom  Start -->
     <div class="header-bottom d-none d-lg-block">
@@ -28,7 +23,7 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.jsp"><img src="assets/images/logo/logo.png" alt="Site Logo"/></a>
+                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="Site Logo"/></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -36,10 +31,10 @@
                 <div class="col align-self-center">
                     <div class="header-actions">
                         <div class="header-bottom-set dropdown">
-                            <a>欢迎: ${sessionScope.member.username}</a>
+                            <a>欢迎: hello</a>
                         </div>
                         <div class="header-bottom-set dropdown">
-                            <a >订单管理</a>
+                            <a href="orderServlet?action=showOrder">订单管理</a>
                         </div>
                         <div class="header-bottom-set dropdown">
                             <a href="memberServlet?action=logout">安全退出</a>
@@ -50,7 +45,6 @@
             </div>
         </div>
     </div>
-    <!-- Header Bottom  End -->
     <!-- Header Bottom  Start 手机端的header -->
     <div class="header-bottom d-lg-none sticky-nav bg-white">
         <div class="container position-relative">
@@ -58,7 +52,8 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.html"><img width="280px" src="assets/images/logo/logo.png" alt="Site Logo"/></a>
+                        <a href="index.html"><img width="280px" src="assets/images/logo/logo.png"
+                                                  alt="Site Logo"/></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -69,10 +64,26 @@
     <div style="width: 100%;height: 50px;background-color: black"></div>
     <!-- Main Menu End -->
 </div>
+<!-- Header Area End  -->
+
+<!-- OffCanvas Cart Start -->
+
+<!-- OffCanvas Cart End -->
+
+<!-- OffCanvas Menu Start -->
+
+<!-- OffCanvas Menu End -->
+
+
+<!-- breadcrumb-area start -->
+
+
+<!-- breadcrumb-area end -->
+
 <!-- Cart Area Start -->
-<div class="cart-main-area pt-70px pb-100px">
+<div class="cart-main-area pt-100px pb-100px">
     <div class="container">
-        <h3 class="cart-page-title">订单管理</h3>
+        <h3 class="cart-page-title">订单-16248893425621</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
@@ -80,34 +91,42 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>订单</th>
-                                <th>日期</th>
+
+                                <th>家居名</th>
+                                <th>单价</th>
+                                <th>数量</th>
                                 <th>金额</th>
-                                <th>状态</th>
-                                <th>详情</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${requestScope.orders}" var="order">
                             <tr>
-                                <td class="product-name">${order.id}</td>
-                                <td class="product-name">${order.createTime}</td>
-                                <td class="product-price-cart"><span class="amount">${order.price}</span></td>
-                                <c:if test="${order.status == 1}">
-                                    <td class="product-name"><a href="#">未发货</a></td>
-                                </c:if>
-                                <c:if test="${order.status == 0}">
-                                    <td class="product-name"><a href="#">已发货</a></td>
-                                </c:if>
-                                <td class="product-remove">
-                                    <a href="#"><i class="icon-eye"></i></a>
-                                </td>
+                                <td class="product-name"><a href="#">Product Name</a></td>
+                                <td class="product-price-cart"><span class="amount">$60.00</span></td>
+                                <td class="product-quantity">12</td>
+                                <td class="product-subtotal">$70.00</td>
                             </tr>
-                            </c:forEach>
+                            <tr>
+                                <td class="product-name"><a href="#">Product Name</a></td>
+                                <td class="product-price-cart"><span class="amount">$60.00</span></td>
+                                <td class="product-quantity">12</td>
+                                <td class="product-subtotal">$70.00</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="cart-shiping-update-wrapper">
+                                <h4>共xx件商品 总价 xxxx.xx元</h4>
+                                <div class="cart-clear">
+                                    <a href="#">继 续 购 物</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>
