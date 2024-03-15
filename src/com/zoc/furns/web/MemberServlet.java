@@ -70,14 +70,14 @@ public class MemberServlet extends BasicServlet{
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         Member member = memberService.login(new Member(null, username, password, null));
-        // 获取用户输入的验证码
-        String loginCode = req.getParameter("loginCode");
+        // 获取用户输入的验证码，暂时关闭验证码，每次登录太麻烦了
+/*        String loginCode = req.getParameter("loginCode");
 
         if (!validateCode(req,loginCode)) {
             req.setAttribute("msg","验证码错误");
             req.getRequestDispatcher("/views/member/login.jsp").forward(req,resp);
             return;
-        }
+        }*/
 
         if (member != null) {
             // 将member放入session

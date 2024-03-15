@@ -41,7 +41,8 @@ public class OrderServiceImpl implements IOrderService {
             furn.setStock(furn.getStock()-cartItem.getCount());
             furnDAO.updateFurn(furn);
         }
-
+        // 4.清空购物车
+        cart.clear();
         return orderId;
     }
 
